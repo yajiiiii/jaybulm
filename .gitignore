@@ -1,0 +1,7 @@
+.tools/
+dist/
+.vercel/
+.playwright-mcp/
+*.exe
+/*.png
+

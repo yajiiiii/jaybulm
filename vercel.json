@@ -1,0 +1,14 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/static/index.html"
+    }
+  ],
+  "functions": {
+    "api/media.go": {
+      "includeFiles": "albums/**"
+    }
+  }
+}
+
