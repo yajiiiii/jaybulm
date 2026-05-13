@@ -3,6 +3,4 @@
 .vercel/
 .playwright-mcp/
 dist/
-go.mod
-main.go
 /*.png

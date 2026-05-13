@@ -15,7 +15,7 @@ import (
 const particleCount = 100
 
 func main() {
-	addr := flag.String("addr", ":8082", "HTTP server address")
+	addr := flag.String("addr", defaultAddr(), "HTTP server address")
 	flag.Parse()
 
 	mux := http.NewServeMux()
@@ -32,6 +32,13 @@ func main() {
 
 	log.Printf("JAYBULM universe running on http://localhost%s", *addr)
 	log.Fatal(http.ListenAndServe(*addr, mux))
+}
+
+func defaultAddr() string {
+	if port := os.Getenv("PORT"); port != "" {
+		return ":" + port
+	}
+	return ":8082"
 }
 
 func handleMedia(w http.ResponseWriter, r *http.Request) {
