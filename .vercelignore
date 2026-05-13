@@ -1,6 +1,7 @@
+.git/
 .tools/
-dist/
 .vercel/
 .playwright-mcp/
-*.exe
+dist/
 /*.png
+

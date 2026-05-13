@@ -304,17 +304,22 @@ function cleanMediaLabel(src) {
 }
 
 async function loadMedia() {
-  try {
-    const response = await fetch("/api/media");
-    if (!response.ok) throw new Error("media request failed");
-    const payload = await response.json();
-    if (Array.isArray(payload.media) && payload.media.length > 0) {
-      return payload.media.slice(0, PARTICLE_COUNT);
+  const endpoints = ["/api/media", "/static/media.json"];
+
+  for (const endpoint of endpoints) {
+    try {
+      const response = await fetch(endpoint);
+      if (!response.ok) throw new Error("media request failed");
+      const payload = await response.json();
+      if (Array.isArray(payload.media) && payload.media.length > 0) {
+        return payload.media.slice(0, PARTICLE_COUNT);
+      }
+    } catch (error) {
+      console.warn(`Could not load media from ${endpoint}.`, error);
     }
-  } catch (error) {
-    console.warn("Using generated fallback media because albums could not be loaded.", error);
   }
 
+  console.warn("Using generated fallback media because albums could not be loaded.");
   return Array.from({ length: PARTICLE_COUNT }, (_, index) => `generated-${index + 1}.png`);
 }
 
